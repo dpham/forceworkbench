@@ -177,6 +177,7 @@ dojo.addOnLoad(function() {
         dojo.byId("pushTopicDmlForm_Name").value = details.Name;
         dojo.byId("pushTopicDmlForm_ApiVersion").value = details.ApiVersion;
         dojo.byId("pushTopicDmlForm_Query").value = details.Query;
+        dojo.byId("pushTopicDmlForm_Description").value = details.Description;
     }
 
 
@@ -217,7 +218,15 @@ dojo.addOnLoad(function() {
     function subscribe() {
         var topic = dojo.byId("selectedTopic").value;
         var topicName = JSON.parse(topic).Name;
-        subscriptions[topicName] = cometd.subscribe("/topic/" + topicName, handleSubscription);
+        var topicDescription = JSON.parse(topic).Description;
+
+        if (topicDescription === null || topicDescription === "") {
+            subscriptions[topicName] = cometd.subscribe("/topic/" + topicName, handleSubscription);
+//            subscriptions[topicName] = cometd.subscribe("/chatter/news", handleSubscription);
+        }
+        else {
+            subscriptions[topicName] = cometd.subscribe(topicDescription, handleSubscription);
+        }
         toggleSubUnSubButtons();
     }
 

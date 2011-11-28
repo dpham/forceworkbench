@@ -62,6 +62,10 @@ require_once "header.php";
                 </select>
             </div>
             <div>
+                <label for="pushTopicDmlForm_Description">Description:</label>
+                <input id="pushTopicDmlForm_Description" name="pushTopicDmlForm_Description" size="30"/>
+            </div>
+            <div>
                 <label for="pushTopicDmlForm_Query">Query:</label>
                 <textarea id="pushTopicDmlForm_Query" name="pushTopicDmlForm_Query" cols="50" rows="3"></textarea>
             </div>
