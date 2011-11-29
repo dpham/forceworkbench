@@ -64,6 +64,8 @@ require_once "header.php";
             <div>
                 <label for="pushTopicDmlForm_Description">Description:</label>
                 <input id="pushTopicDmlForm_Description" name="pushTopicDmlForm_Description" size="30"/>
+                <label for="pushTopicDmlForm_Description">Subscription:</label>
+                <input id="pushTopicDmlForm_Subscription" name="pushTopicDmlForm_Subscription" size="30"/>
             </div>
             <div>
                 <label for="pushTopicDmlForm_Query">Query:</label>

@@ -218,14 +218,15 @@ dojo.addOnLoad(function() {
     function subscribe() {
         var topic = dojo.byId("selectedTopic").value;
         var topicName = JSON.parse(topic).Name;
-        var topicDescription = JSON.parse(topic).Description;
+//        var topicDescription = JSON.parse(topic).Description;
 
-        if (topicDescription === null || topicDescription === "") {
+        var subscription = dojo.byId("pushTopicDmlForm_Subscription").value;
+
+        if (subscription === null || subscription === "") {
             subscriptions[topicName] = cometd.subscribe("/topic/" + topicName, handleSubscription);
-//            subscriptions[topicName] = cometd.subscribe("/chatter/news", handleSubscription);
         }
         else {
-            subscriptions[topicName] = cometd.subscribe(topicDescription, handleSubscription);
+            subscriptions[topicName] = cometd.subscribe(subscription, handleSubscription);
         }
         toggleSubUnSubButtons();
     }
@@ -341,6 +342,7 @@ dojo.addOnLoad(function() {
     bindEvent(dojo.byId("selectedTopic"), "change", copySelectedTopic);
     bindEvent(dojo.byId("selectedTopic"), "change", hideMessages);
     bindEvent(dojo.byId("selectedTopic"), "change", toggleSubUnSubButtons);
+    bindEvent(dojo.byId("pushTopicDmlForm_Subscription"), "select", toggleSubUnSubButtons);
     bindEvent(dojo.byId("pushTopicSubscribeBtn"), "click", hideMessages);
     bindEvent(dojo.byId("pushTopicUnsubscribeBtn"), "click", hideMessages);
     bindEvent(dojo.byId("pushTopicSubscribeBtn"), "click", subscribe);
