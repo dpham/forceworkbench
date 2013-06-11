@@ -328,7 +328,7 @@ table.sortable tr.sortBottom td {
     font-weight: bold;
 }
 
-#pushTopicContainer {
+#pushTopicContainer, #genericSubscriptionContainer {
     margin-top: 10px;
 }
 

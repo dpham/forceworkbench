@@ -29,11 +29,10 @@ class StreamingController {
         }
 
         $this->selectedTopic = new PushTopic(
-            isset($_REQUEST['pushTopicDmlForm_Id'])             ? $_REQUEST['pushTopicDmlForm_Id']          : null,
-            isset($_REQUEST['pushTopicDmlForm_Name'])           ? $_REQUEST['pushTopicDmlForm_Name']        : null,
-            isset($_REQUEST['pushTopicDmlForm_ApiVersion'])     ? $_REQUEST['pushTopicDmlForm_ApiVersion']  : null,
-            isset($_REQUEST['pushTopicDmlForm_Query'])          ? $_REQUEST['pushTopicDmlForm_Query']       : null,
-            isset($_REQUEST['pushTopicDmlForm_Description'])   ? $_REQUEST['pushTopicDmlForm_Description']: null);
+            isset($_REQUEST['pushTopicDmlForm_Id'])         ? $_REQUEST['pushTopicDmlForm_Id']         : null,
+            isset($_REQUEST['pushTopicDmlForm_Name'])       ? $_REQUEST['pushTopicDmlForm_Name']       : null,
+            isset($_REQUEST['pushTopicDmlForm_ApiVersion']) ? $_REQUEST['pushTopicDmlForm_ApiVersion'] : null,
+            isset($_REQUEST['pushTopicDmlForm_Query'])      ? $_REQUEST['pushTopicDmlForm_Query']      : null);
 
         if (isset($_REQUEST['PUSH_TOPIC_DML'])) {
             $this->isAjax = true;
@@ -49,7 +48,7 @@ class StreamingController {
     }
 
     private function refresh() {
-        $pushTopicSoql = "SELECT Id, Name, Query, ApiVersion, Description FROM PushTopic";
+        $pushTopicSoql = "SELECT Id, Name, Query, ApiVersion FROM PushTopic";
         $url = $this->restBaseUrl . "/query?" . http_build_query(array("q" => $pushTopicSoql));
 
         try {
@@ -130,7 +129,6 @@ class StreamingController {
             $topic->Name = htmlspecialchars($topic->Name, ENT_QUOTES);
             $topic->Query = htmlspecialchars($topic->Query, ENT_QUOTES);
             $topic->ApiVersion = strpos($topic->ApiVersion, ".") === false ? $topic->ApiVersion.".0" : $topic->ApiVersion;
-            $topic->Description = htmlspecialchars($topic->Description, ENT_QUOTES);
             $selected = $topic->Name == $this->selectedTopic->Name ? "selected='selected'" : "";
             $options .= "<option value='". json_encode($topic) . "' $selected>" . $topic->Name . "</option>\n";
         }
@@ -183,24 +181,23 @@ class StreamingController {
 }
 
 class PushTopic {
-    public $Id, $Name, $ApiVersion, $Query, $Description;
+    public $Id, $Name, $ApiVersion, $Query;
 
-    function __construct($id, $name, $apiVersion, $query, $description) {
+    function __construct($id, $name, $apiVersion, $query) {
         $this->Id = $id;
         $this->Name = $name;
         $this->ApiVersion = $apiVersion;
         $this->Query = $query;
-        $this->Description = $description;
     }
 
     static function template() {
-        return new PushTopic(null, null, WorkbenchContext::get()->getApiVersion(), null, null);
+        return new PushTopic(null, null, WorkbenchContext::get()->getApiVersion(), null);
     }
 
     static function fromJson($jsonStr) {
         $json = json_decode($jsonStr);
 
-        return new PushTopic($json->Id, $json->Name, $json->ApiVersion, $json->Query, $json->Description);
+        return new PushTopic($json->Id, $json->Name, $json->ApiVersion, $json->Query);
     }
 
     function toJson($includeId = true) {

@@ -13,13 +13,18 @@ if ($c->isAjax()) {
 require_once "header.php";
 ?>
 
-<p class="instructions">Subscribe to a Push Topic to stream query updates:</p>
+<p class="instructions" xmlns="http://www.w3.org/1999/html">Subscribe to a Push Topic to stream query updates:</p>
 
 <div id="messages">
     <?php echo $c->getMessages(); ?>
 </div>
 
-<div id="pushTopicContainer" style="display: <?php echo $c->isEnabled() ? "block" : "none"?>;">
+<div id="subscriptionTypeSelectors">
+    <label><input id="subscriptionTypeSelectPushTopic" type="radio" name="subscriptionType" value="pushTopic" checked/>Push Topics</label>
+    <label><input id="subscriptionTypeSelectGenericSubscription" type="radio" name="subscriptionType" value="genericSubscription"/>Generic Subscriptions</label>
+</div>
+
+<div id="pushTopicContainer" style="display: block;">
     <label for="selectedTopic">Push Topic:</label>
     <select id="selectedTopic">
         <?php echo $c->getPushTopicOptions(); ?>
@@ -62,12 +67,6 @@ require_once "header.php";
                 </select>
             </div>
             <div>
-                <label for="pushTopicDmlForm_Description">Description:</label>
-                <input id="pushTopicDmlForm_Description" name="pushTopicDmlForm_Description" size="30"/>
-                <label for="pushTopicDmlForm_Description">Subscription:</label>
-                <input id="pushTopicDmlForm_Subscription" name="pushTopicDmlForm_Subscription" size="30"/>
-            </div>
-            <div>
                 <label for="pushTopicDmlForm_Query">Query:</label>
                 <textarea id="pushTopicDmlForm_Query" name="pushTopicDmlForm_Query" cols="50" rows="3"></textarea>
             </div>
@@ -89,6 +88,11 @@ require_once "header.php";
             </div>
         </form>
     </div>
+</div>
+
+<div id="genericSubscriptionContainer" style="display: none;">
+    <label>Subscription: <input id="genericSubscription" name="genericSubscription"></label>
+    <input id="genericSubscribeBtn" type="button" value="Subscribe"/>
 </div>
 
 <div id="streamContainer">
