@@ -93,6 +93,7 @@ require_once "header.php";
 <div id="genericSubscriptionContainer" style="display: none;">
     <label>Subscription: <input id="genericSubscription" name="genericSubscription"></label>
     <input id="genericSubscribeBtn" type="button" value="Subscribe"/>
+    <input id="genericUnsubscribeBtn" type="button" value="Unsubscribe" disabled="disabled"/>
 </div>
 
 <div id="streamContainer">

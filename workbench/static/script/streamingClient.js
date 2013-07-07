@@ -248,7 +248,7 @@ dojo.addOnLoad(function() {
 
     function unsubscribe() {
         var topic = dojo.byId("selectedTopic").value;
-        var topicName = JSON.parse(topic).Name;
+        var topicName = "/topic/" + JSON.parse(topic).Name;
         cometd.unsubscribe(subscriptions[topicName]);
         subscriptions[topicName] = undefined;
         toggleSubUnSubButtons();
@@ -278,16 +278,16 @@ dojo.addOnLoad(function() {
             return;
         }
 
-        var selectedTopicName = JSON.parse(topic).Name;
+        var selectedSubscription = "/topic/" + JSON.parse(topic).Name;
 
-        if (selectedTopicName === null || selectedTopicName === "") {
+        if (selectedSubscription === null || selectedSubscription === "") {
             dojo.byId("pushTopicSubscribeBtn").disabled = true;
             dojo.byId("pushTopicUnsubscribeBtn").disabled = true;
             return;
         }
 
         for (subName in subscriptions) {
-            if (selectedTopicName === subName && subscriptions[subName] !== undefined) {
+            if (selectedSubscription === subName && subscriptions[subName] !== undefined) {
                 dojo.byId("pushTopicSubscribeBtn").disabled = true;
                 dojo.byId("pushTopicUnsubscribeBtn").disabled = false;
                 return;
